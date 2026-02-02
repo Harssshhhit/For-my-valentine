@@ -3,222 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You!</title>
+    <title>Yay!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
-            background-color: #ffe6e6;
+            background: #ffe6e6;
             font-family: 'Nunito', sans-serif;
-            text-align: center;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
         }
-
-        #thankyou {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: #d32f2f;
-            margin-bottom: 20px;
-            animation: popIn 1s ease;
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            border: 5px solid #ff4d4d;
+            border-style: double;
+            animation: popUp 0.8s ease;
         }
-
-        #rizz {
-            width: 250px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-            transition: transform 0.3s;
+        h1 { font-family: 'Dancing Script', cursive; color: #d32f2f; font-size: 3rem; margin: 0; }
+        img { width: 200px; border-radius: 15px; margin: 20px 0; }
+        .btn {
+            background: #ff4d4d; color: white; padding: 12px 30px; border: none;
+            border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
+            font-family: 'Nunito', sans-serif; font-weight: bold;
         }
-        #rizz:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        audio {
-            margin: 20px 0;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #555;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-       
-        .button {
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            background: linear-gradient(45deg, #ff4d4d, #ff80ab);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 77, 77, 0.6);
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4); }
+        @keyframes popUp { from { transform: scale(0); } to { transform: scale(1); } }
     </style>
 </head>
 <body>
-
-    <div id="thankyou"><b>Thank you Madam Ji ❤️</b></div>
-
-    <img id="rizz" src="rizz.gif" alt="Happiness" class="responsive" />
-    
-    <br />
-    
-    <audio controls autoplay loop>
-        <source src="congratulations.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-    </audio>
-
-    <h1>Don't go yet! I have a plan...</h1>
-    
-    <button class="button" onclick="location.href='date.html'">
-        Pyar se click karo ab ➡️
-    </button>
-
+    <div class="card">
+        <h1>Yeaaah! ❤️</h1>
+        <img src="https://media.giphy.com/media/T86i6yDyOYz7J6vap8/giphy.gif" alt="Happy Cat">
+        <p style="font-size: 1.2rem; color: #555;">I knew you would say Yes!</p>
+        <button class="btn" onclick="location.href='date.html'">Let's Plan It ➡️</button>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        
-        window.onload = function() {
-            var duration = 3000;
-            var end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 7,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
-                });
-                confetti({
-                    particleCount: 7,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
+        window.onload = () => {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         };
     </script>
-    <script>
-  const card = document.querySelector(".container, .food-selection, .dessert-selection, .activities-selection, #date-summary, .img-container");
-  
-  if (card) {
-    card.style.transition = "transform 0.1s ease, box-shadow 0.2s ease";
-    card.style.transformStyle = "preserve-3d";
-    card.style.perspective = "1000px";
-
-    const glare = document.createElement("div");
-    glare.style.position = "absolute";
-    glare.style.width = "100%";
-    glare.style.height = "100%";
-    glare.style.top = "0";
-    glare.style.left = "0";
-    glare.style.backgroundImage = "linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 40%)";
-    glare.style.opacity = "0";
-    glare.style.transition = "opacity 0.3s";
-    glare.style.pointerEvents = "none";
-    glare.style.borderRadius = "20px";
-    glare.style.zIndex = "10";
-    card.appendChild(glare);
-
-    document.addEventListener("mousemove", (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.02)`;
-      card.style.boxShadow = `${-xAxis}px ${yAxis}px 30px rgba(0,0,0,0.2)`;
-
-      glare.style.opacity = "1";
-      glare.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-    });
-
-    document.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
-      card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
-      glare.style.opacity = "0";
-    });
-  }
-
-  const colors = ["#ff4d4d", "#ff9a9e", "#fad0c4", "#ffffff"];
-
-  document.addEventListener("mousemove", function (e) {
-    if (Math.random() < 0.8) return; 
-
-    let sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    document.body.appendChild(sparkle);
-
-    let x = e.pageX;
-    let y = e.pageY;
-    let size = Math.random() * 8 + 4;
-    let color = colors[Math.floor(Math.random() * colors.length)];
-
-    sparkle.style.left = x + "px";
-    sparkle.style.top = y + "px";
-    sparkle.style.width = size + "px";
-    sparkle.style.height = size + "px";
-    sparkle.style.background = color;
-
-    let plusMinusX = Math.random() < 0.5 ? -1 : 1;
-    let plusMinusY = Math.random() < 0.5 ? -1 : 1;
-    let randomX = Math.random() * 30 * plusMinusX;
-    let randomY = Math.random() * 30 * plusMinusY;
-
-    sparkle.animate([
-      { transform: `translate(0, 0) scale(1)`, opacity: 1 },
-      { transform: `translate(${randomX}px, ${randomY}px) scale(0)`, opacity: 0 }
-    ], {
-      duration: 800,
-      easing: "cubic-bezier(0, .9, .57, 1)",
-    }).onfinish = function() {
-      sparkle.remove();
-    };
-  });
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-    }
-    body {
-      perspective: 1000px;
-      overflow-x: hidden;
-    }
-  `;
-  document.head.appendChild(style);
-</script>
-
 </body>
 </html>
