@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <title>She Said YES! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            background-color: #ffe6e6;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
             font-family: 'Nunito', sans-serif;
             text-align: center;
             display: flex;
@@ -18,48 +21,144 @@
             margin: 0;
             overflow: hidden;
         }
-        #thankyou {
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 350px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #d32f2f;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+        }
+
+        .status-badge {
+            background: #ff4d4d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
             margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
         }
-        #rizz { width: 250px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* Make sure you use a GIF with a transparent background for best results */
+        #reaction-img { 
+            width: 180px; 
+            height: auto; 
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 10px 0 25px 0;
+            font-weight: 700;
+        }
+
         .button {
-            padding: 15px 40px; font-size: 1.3rem; background: linear-gradient(45deg, #ff4d4d, #ff80ab); color: white;
-            border: none; border-radius: 50px; cursor: pointer; text-decoration: none; font-weight: bold; margin-top: 20px;
+            padding: 15px 30px; 
+            font-size: 1.2rem; 
+            background: linear-gradient(45deg, #ff4d4d, #ff80ab); 
+            color: white;
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 20px rgba(255, 77, 128, 0.4);
+            width: 100%;
         }
-        .button:hover { transform: scale(1.05); }
+
+        .button:hover { 
+            transform: scale(1.05) translateY(-3px); 
+            box-shadow: 0 10px 25px rgba(255, 77, 128, 0.6);
+        }
     </style>
 </head>
 <body>
-    <div id="thankyou"><b>Thank you Madam Ji ❤️</b></div>
-    <img id="rizz" src="rizz.gif" alt="Happiness" class="responsive" />
-    <br />
-    <audio controls autoplay loop>
-        <source src="congratulations.mp3" type="audio/mpeg" />
-    </audio>
-    <h1>Don't go yet! I have a plan...</h1>
-    <button class="button" onclick="location.href='date.html'">Pyar se click karo ab ➡️</button>
+
+    <div class="container">
+        <div class="status-badge">✅ Relationship Status: Updated</div>
+
+        <h1>Yeaaahhh! ❤️</h1>
+        
+        <img id="reaction-img" src="happy.gif" alt="Happy Reaction">
+
+        <p>I knew you would say yes! (Mostly) <br> Now... I have a plan.</p>
+
+        <audio id="bgMusic" autoplay loop>
+            <source src="congratulations.mp3" type="audio/mpeg" />
+        </audio>
+
+        <button class="button" onclick="location.href='date.html'">Let's Plan the Date! ➡️</button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
+        // Trigger massive confetti
         window.onload = function() {
             var duration = 3000;
             var end = Date.now() + duration;
+
             (function frame() {
-                confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d4d', '#ff80ab'] });
-                confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d4d', '#ff80ab'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d4d', '#ff80ab', '#ffffff'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d4d', '#ff80ab', '#ffffff'] });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
             }());
+
+            // Attempt to play audio if autoplay was blocked
+            let audio = document.getElementById("bgMusic");
+            document.body.addEventListener("click", function() {
+                audio.play();
+            }, { once: true });
         };
-        // Heart Trail Code
+
+        // Heart Trail Effect
         document.addEventListener("mousemove", (e) => {
-            let heart = document.createElement("span"); heart.className = "trail-heart";
-            heart.style.left = e.pageX + "px"; heart.style.top = e.pageY + "px";
-            let size = Math.random() * 20 + 10; heart.style.width = size + "px"; heart.style.height = size + "px";
-            document.body.appendChild(heart); setTimeout(() => heart.remove(), 1000);
+            let body = document.querySelector("body");
+            let heart = document.createElement("span");
+            heart.className = "trail-heart";
+            heart.style.left = e.pageX + "px";
+            heart.style.top = e.pageY + "px";
+            let size = Math.random() * 20 + 10;
+            heart.style.width = size + "px";
+            heart.style.height = size + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
         });
+
+        // Add styles for the heart trail via JS to keep HTML clean
         const style = document.createElement('style');
         style.innerHTML = `.trail-heart { position: absolute; background: url('https://cdn-icons-png.flaticon.com/512/210/210545.png') center/cover; pointer-events: none; transform: translate(-50%, -50%); animation: fadeOut 1s linear forwards; z-index: 100; opacity: 0.6; } @keyframes fadeOut { 100% { transform: translate(-50%, -150%) scale(0); opacity: 0; } }`;
         document.head.appendChild(style);
