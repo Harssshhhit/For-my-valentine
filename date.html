@@ -2,62 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save the Date</title>
+    <title>Date Selection</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #e0f7fa;
+            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%);
             font-family: 'Nunito', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
         }
         .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 350px;
-            transform-style: preserve-3d;
-            transition: transform 0.1s;
+            text-align: center; background: rgba(255, 255, 255, 0.9); padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px;
         }
-        h1 { font-family: 'Dancing Script'; color: #006064; font-size: 2.5rem; }
-        input { padding: 15px; border-radius: 10px; border: 2px solid #00bcd4; width: 80%; font-size: 1.1rem; text-align: center; color: #006064; outline: none; }
-        .btn { margin-top: 20px; padding: 12px 30px; border-radius: 50px; background: #00bcd4; color: white; border: none; cursor: pointer; font-size: 1.2rem; font-weight: bold; }
-        .btn:hover { background: #0097a7; }
+        h1 { font-family: 'Dancing Script', cursive; color: #d35400; font-size: 2.5rem; margin-bottom: 20px; }
+        input[type="date"] { padding: 12px; font-size: 1.1rem; border: 2px solid #ffccbc; border-radius: 10px; width: 80%; text-align: center; color: #d35400; }
+        .button { margin-top: 25px; padding: 12px 35px; font-size: 1.2rem; background: linear-gradient(45deg, #ff7e5f, #feb47b); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        
+        /* Custom Popup */
+        #custom-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .popup-content { background: white; margin: 25% auto; padding: 25px; border-radius: 15px; width: 300px; text-align: center; border-top: 5px solid #ff7e5f; }
     </style>
 </head>
 <body>
-    <div class="container" id="card3d">
-        <h1>Save the Date 📅</h1>
-        <p>When are you free, my love?</p>
-        <input type="date" id="date-input">
-        <br>
-        <button class="btn" id="date-btn">Lock It 🔒</button>
+    <div class="container">
+        <h1>Are you free on ...</h1>
+        <label style="display:block; margin-bottom:15px; color:#555;">Pick a date for our date! 📅</label>
+        <input type="date" id="date-input" />
+        <button class="button" id="date-btn">Let's Go ➔</button>
+    </div>
+
+    <div id="custom-popup">
+        <div class="popup-content">
+            <h3 style="color:#d35400;">Harshit says ❤️</h3>
+            <p>Please pick a date first, cutie!</p>
+            <button onclick="document.getElementById('custom-popup').style.display='none'" style="padding:8px 20px; background:#ff7e5f; color:white; border:none; border-radius:5px;">Okay!</button>
+        </div>
     </div>
 
     <script>
-        // 3D Tilt Script (Included)
-        const card = document.getElementById('card3d');
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 20;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 20;
-            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
         document.getElementById('date-btn').addEventListener('click', function() {
             const dateVal = document.getElementById('date-input').value;
-            if(dateVal) {
-                localStorage.setItem('user_date', dateVal);
-                window.location.href = 'food.html';
-            } else {
-                alert("Please pick a date! ❤️");
-            }
+            if(dateVal) { localStorage.setItem('user_date', dateVal); window.location.href = 'food.html'; }
+            else { document.getElementById('custom-popup').style.display = 'block'; }
         });
+        // Heart Trail Code
+        document.addEventListener("mousemove", (e) => { let h=document.createElement("span"); h.className="trail-heart"; h.style.left=e.pageX+"px"; h.style.top=e.pageY+"px"; h.style.width=h.style.height=(Math.random()*20+10)+"px"; document.body.appendChild(h); setTimeout(()=>h.remove(),1000); });
+        const s = document.createElement('style'); s.innerHTML = `.trail-heart { position: absolute; background: url('https://cdn-icons-png.flaticon.com/512/210/210545.png') center/cover; pointer-events: none; transform: translate(-50%, -50%); animation: fadeOut 1s linear forwards; z-index: 100; opacity: 0.6; } @keyframes fadeOut { 100% { transform: translate(-50%, -150%) scale(0); opacity: 0; } }`; document.head.appendChild(s);
     </script>
 </body>
 </html>
