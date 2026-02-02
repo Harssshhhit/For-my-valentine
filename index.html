@@ -3,241 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>Be My Valentine?</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         body {
-            background: #fdf2f2; 
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            font-family: 'Nunito', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            font-family: 'Nunito', sans-serif;
         }
 
-        .wrapper {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .wrapper:hover {
-            transform: scale(1.02);
-        }
-
-        .envelope {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background: #ff4d4d;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        #valentineQuestion {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #d32f2f;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
             z-index: 10;
         }
-        
-        
-        .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 110px solid #ff3333; 
-            transform-origin: top;
-            transition: transform 0.6s ease, z-index 0.6s;
-            z-index: 20;
-        }
 
-        
-        .pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-bottom: 100px solid #ff6666; 
-            z-index: 15;
-            border-radius: 0 0 10px 10px;
-        }
-
-        
-        .letter {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            width: 270px;
-            height: 350px; 
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.8s ease, z-index 0.2s;
-            z-index: 5; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        
-        .wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1; 
-        }
-        
-        .wrapper.open .letter {
-            transform: translateY(-200px); 
-            z-index: 25; 
-            height: 400px; 
-        }
-
-        
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #d32f2f;
-            margin: 10px 0;
-            font-size: 1.8rem;
-        }
-        
-        .cat-img {
-            width: 120px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+        .img-container img {
+            width: 200px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 4px solid white;
+            margin-bottom: 20px;
         }
 
         .buttons {
-            margin-top: auto; 
             display: flex;
-            gap: 10px;
-            flex-direction: column;
-            width: 100%;
+            gap: 20px;
+            align-items: center;
+            z-index: 10;
         }
 
-        .btn {
-            padding: 10px;
+        .answerButton {
+            padding: 15px 40px;
+            font-size: 1.3rem;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
-            width: 100%;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
         }
 
-        .yes {
-            background: #ff4d4d;
+        .yes-btn {
+            background: linear-gradient(45deg, #ff4d4d, #ff1744);
             color: white;
+            box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
         }
-        .yes:hover { background: #e60000; }
+        .yes-btn:hover { transform: scale(1.1); }
 
-        .no {
-            background: #ddd;
-            color: #333;
-            position: relative; 
-        }
-
-       
-        .hint {
-            position: absolute;
-            bottom: -40px;
-            width: 100%;
-            text-align: center;
-            color: #888;
-            font-size: 0.9rem;
-            animation: bounce 1s infinite;
-            opacity: 1;
-            transition: opacity 0.5s;
-        }
-        
-       
-        .heart-seal {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            color: #d32f2f;
-            z-index: 30;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: opacity 0.5s;
-        }
-
-        .wrapper.open .heart-seal, 
-        .wrapper.open .hint {
-            opacity: 0; 
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(5px); }
+        #noButton {
+            background-color: #fff;
+            color: #555;
+            border: 2px solid #eee;
         }
     </style>
 </head>
 <body>
+    <div class="img-container">
+        <img src="cat.gif" alt="cute cat" class="responsive" />
+    </div>
 
-    <div class="wrapper" id="envelopeWrapper">
-        
-        <div class="envelope">
-            <div class="flap"></div>
-            <div class="pocket"></div>
-            <div class="heart-seal">❤️</div>
-        </div>
-
-        <div class="letter">
-            <img src="cat.gif" alt="Cute Cat" class="cat-img">
-            <h1>Dear Aprajita,</h1>
-            <p>I have a very important question for you...</p>
-            <h2 style="color: #ff4d4d; font-family: 'Dancing Script';">Will you be my Valentine?</h2>
-            
-            <div class="buttons">
-                <button class="btn yes" onclick="location.href='thankyou.html'">YES! ❤️</button>
-                <button class="btn no" id="noBtn">No way 😤</button>
-            </div>
-        </div>
-        
-        <div class="hint">Click to open 💌</div>
+    <div id="valentineQuestion">Will you be my valentine Aprajita? 🌹</div>
+    
+    <div class="buttons">
+        <button class="answerButton yes-btn" onclick="location.href='thankyou.html'">Obviously Yes ❤️</button>
+        <button class="answerButton" id="noButton">No Never 😤</button>
     </div>
 
     <script>
-        const wrapper = document.getElementById('envelopeWrapper');
-        const noBtn = document.getElementById('noBtn');
-        let isOpen = false;
-
-       
-        wrapper.addEventListener('click', function(e) {
-            if(e.target.tagName === 'BUTTON') return;
-
-            if (!isOpen) {
-                wrapper.classList.add('open');
-                isOpen = true;
-            }
+        // 1. Runaway Button
+        const noBtn = document.getElementById("noButton");
+        const yesBtn = document.querySelector(".yes-btn");
+        noBtn.addEventListener("mouseover", () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+        noBtn.addEventListener("click", () => {
+            let size = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (size + 20) + "px";
+            yesBtn.innerText = "Pleaseeeee 🥺";
         });
 
-       
-        noBtn.addEventListener('mouseover', function() {
-          
-            const letterRect = document.querySelector('.letter').getBoundingClientRect();
-            const maxX = 200; 
-            const maxY = 300; 
-
-            const randomX = Math.floor(Math.random() * maxX) - 100;
-            const randomY = Math.floor(Math.random() * maxY) - 150;
-
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        // 2. Heart Trail
+        document.addEventListener("mousemove", (e) => {
+            let heart = document.createElement("span");
+            heart.className = "trail-heart";
+            heart.style.left = e.pageX + "px";
+            heart.style.top = e.pageY + "px";
+            let size = Math.random() * 20 + 10;
+            heart.style.width = size + "px";
+            heart.style.height = size + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
         });
-        
-        
-        noBtn.addEventListener('touchstart', function() {
-            const randomX = Math.floor(Math.random() * 200) - 100;
-            const randomY = Math.floor(Math.random() * 200) - 100;
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        });
-    </script>
-</body>
-</html>
+
+        // Style for Hearts
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .trail-heart { position: absolute; background: url('
