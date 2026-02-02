@@ -30,6 +30,20 @@
     </div>
 
     <button class="button" id="save-dessert">Sweet! Next ➔</button>
+    <body>
+    <audio id="bg-music" autoplay loop>
+        <source src="rem.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        window.addEventListener('click', function() {
+            var audio = document.getElementById("bg-music");
+            audio.play();
+        }, { once: true });
+    </script>
+
+</body>
+</html>
 
     <script>
         document.getElementById('save-dessert').addEventListener('click', function() {
