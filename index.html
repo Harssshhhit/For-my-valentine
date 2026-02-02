@@ -3,116 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <title>For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;800&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --primary: #ff4d4d;
+            --secondary: #ffeb3b;
+            --envelope-color: #ff6b6b;
+            --envelope-dark: #e05555;
+            --bg-color: #ffe6e6;
+        }
+
         body {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
-            font-family: 'Nunito', sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            font-family: 'Nunito', sans-serif;
             overflow: hidden;
+            margin: 0;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 350px;
+            height: 250px;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .envelope-wrapper.open {
+            animation: none;
+            cursor: default;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 175px solid transparent;
+            border-right: 175px solid transparent;
+            border-top: 130px solid var(--envelope-dark);
+            transform-origin: top;
+            transition: transform 0.6s 0.2s ease, z-index 0.2s;
+            z-index: 30;
+        }
+
+        .pocket-left {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 175px solid var(--envelope-color);
+            border-bottom: 125px solid transparent;
+            border-top: 125px solid transparent;
+            z-index: 20;
+        }
+
+        .pocket-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-right: 175px solid var(--envelope-color);
+            border-bottom: 125px solid transparent;
+            border-top: 125px solid transparent;
+            z-index: 20;
+        }
+
+        .pocket-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 175px solid transparent;
+            border-right: 175px solid transparent;
+            border-bottom: 130px solid var(--envelope-dark);
+            z-index: 21;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: var(--primary);
+            z-index: 31;
+            transition: opacity 0.4s;
+        }
+
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 25px;
+            width: 300px;
+            height: auto;
+            min-height: 350px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.8s 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), z-index 0s 0.6s;
+            transform: translateY(50px);
+            z-index: 5;
+            border-radius: 10px;
+            border: 3px solid #fff0f0;
+        }
+
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .heart-seal {
+            opacity: 0;
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-200px);
+            z-index: 25;
+        }
+
+        .img-container img {
+            width: 180px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid white;
+            margin-bottom: 15px;
         }
 
         #valentineQuestion {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #d32f2f;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-            z-index: 10;
-        }
-
-        .img-container img {
-            width: 200px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border: 4px solid white;
-            margin-bottom: 20px;
+            line-height: 1.2;
         }
 
         .buttons {
             display: flex;
-            gap: 20px;
-            align-items: center;
-            z-index: 10;
+            gap: 15px;
+            margin-top: 10px;
         }
 
         .answerButton {
-            padding: 15px 40px;
-            font-size: 1.3rem;
+            padding: 12px 25px;
+            font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-family: 'Nunito', sans-serif;
             font-weight: 800;
+            white-space: nowrap;
         }
 
         .yes-btn {
             background: linear-gradient(45deg, #ff4d4d, #ff1744);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 23, 68, 0.3);
         }
-        .yes-btn:hover { transform: scale(1.1); }
 
         #noButton {
-            background-color: #fff;
+            background-color: #f0f0f0;
             color: #555;
-            border: 2px solid #eee;
+            border: 2px solid #ddd;
+            position: relative;
         }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            color: #d32f2f;
+            font-size: 1.5rem;
+            animation: fade 2s infinite;
+        }
+        .envelope-wrapper.open .click-hint { display: none; }
+        @keyframes fade { 0%,100% {opacity: 1;} 50% {opacity: 0.5;} }
+
     </style>
 </head>
 <body>
-    <div class="img-container">
-        <img src="cat.gif" alt="cute cat" class="responsive" />
-    </div>
 
-    <div id="valentineQuestion">Will you be my valentine Aprajita? 🌹</div>
-    
-    <div class="buttons">
-        <button class="answerButton yes-btn" onclick="location.href='thankyou.html'">Obviously Yes ❤️</button>
-        <button class="answerButton" id="noButton">No Never 😤</button>
+    <div class="envelope-wrapper" id="envelope">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket-left"></div>
+            <div class="pocket-right"></div>
+            <div class="pocket-bottom"></div>
+            <div class="heart-seal">❤️</div>
+            
+            <div class="letter">
+                <div class="img-container">
+                    <img src="cat.gif" alt="cute cat" />
+                </div>
+
+                <div id="valentineQuestion">Will you be my valentine Aprajita? 🌹</div>
+                
+                <div class="buttons">
+                    <button class="answerButton yes-btn" onclick="location.href='thankyou.html'">
+                        Yes ❤️
+                    </button>
+                    
+                    <button class="answerButton" id="noButton">
+                        No 😤
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="click-hint">Click to open...</div>
     </div>
 
     <script>
-        // 1. Runaway Button
+        const envelope = document.getElementById('envelope');
         const noBtn = document.getElementById("noButton");
         const yesBtn = document.querySelector(".yes-btn");
-        noBtn.addEventListener("mouseover", () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = "absolute";
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        });
-        noBtn.addEventListener("click", () => {
-            let size = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (size + 20) + "px";
-            yesBtn.innerText = "Pleaseeeee 🥺";
+        let isEnvelopeOpen = false;
+
+        envelope.addEventListener('click', function() {
+            if (!isEnvelopeOpen) {
+                this.classList.add('open');
+                isEnvelopeOpen = true;
+            }
         });
 
-        // 2. Heart Trail
-        document.addEventListener("mousemove", (e) => {
+        noBtn.addEventListener("mouseover", function(e) {
+            if (!isEnvelopeOpen) return;
+
+            const letter = document.querySelector('.letter');
+            const letterRect = letter.getBoundingClientRect();
+            
+            const maxX = letterRect.width - noBtn.offsetWidth - 20;
+            const maxY = letterRect.height - noBtn.offsetHeight - 20;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            noBtn.style.position = "absolute";
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+            
+            e.stopPropagation();
+        });
+
+        noBtn.addEventListener("click", function (e) {
+            if (!isEnvelopeOpen) return;
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 10) + "px";
+            yesBtn.innerText = "Pleaseeeee 🥺"; 
+            e.stopPropagation();
+        });
+
+        yesBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+            let body = document.querySelector("body");
             let heart = document.createElement("span");
-            heart.className = "trail-heart";
-            heart.style.left = e.pageX + "px";
-            heart.style.top = e.pageY + "px";
+            let x = e.pageX;
+            let y = e.pageY;
+            
+            heart.style.left = x + "px";
+            heart.style.top = y + "px";
+            
             let size = Math.random() * 20 + 10;
             heart.style.width = size + "px";
             heart.style.height = size + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1000);
+            heart.className = "trail-heart";
+            
+            body.appendChild(heart);
+
+            setTimeout(function () {
+                heart.remove();
+            }, 1000);
         });
 
-        // Style for Hearts
         const style = document.createElement('style');
         style.innerHTML = `
-            .trail-heart { position: absolute; background: url('
+            .trail-heart {
+                position: absolute;
+                background: url('https://cdn-icons-png.flaticon.com/512/210/210545.png');
+                background-size: cover;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                animation: fadeOut 1s linear forwards;
+                z-index: 9999;
+                opacity: 0.6;
+            }
+            @keyframes fadeOut {
+                0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+                100% { transform: translate(-50%, -150%) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
