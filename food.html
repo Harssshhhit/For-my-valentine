@@ -36,6 +36,20 @@
     </div>
 
     <button class="button" id="save-food">Yummy! Next ➔</button>
+    <body>
+    <audio id="bg-music" autoplay loop>
+        <source src="hour.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        window.addEventListener('click', function() {
+            var audio = document.getElementById("bg-music");
+            audio.play();
+        }, { once: true });
+    </script>
+
+</body>
+</html>
 
     <script>
         document.getElementById('save-food').addEventListener('click', function() {
