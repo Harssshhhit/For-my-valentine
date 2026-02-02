@@ -3,217 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Be My Valentine?</title>
+    <title>For You ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         body {
-            
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-            font-family: 'Nunito', sans-serif;
+            background: #fdf2f2; 
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            font-family: 'Nunito', sans-serif;
         }
 
-        #valentineQuestion {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #d32f2f;
-            margin-bottom: 30px;
-            animation: bounce 2s infinite; 
+        .wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .wrapper:hover {
+            transform: scale(1.02);
         }
 
-        .img-container {
-            margin-bottom: 20px;
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ff4d4d;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 10;
         }
         
-        img.responsive {
-            width: 200px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #ff3333; 
+            transform-origin: top;
+            transition: transform 0.6s ease, z-index 0.6s;
+            z-index: 20;
+        }
+
+        
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 100px solid #ff6666; 
+            z-index: 15;
+            border-radius: 0 0 10px 10px;
+        }
+
+        
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 270px;
+            height: 350px; 
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.8s ease, z-index 0.2s;
+            z-index: 5; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        
+        .wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1; 
+        }
+        
+        .wrapper.open .letter {
+            transform: translateY(-200px); 
+            z-index: 25; 
+            height: 400px; 
+        }
+
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d32f2f;
+            margin: 10px 0;
+            font-size: 1.8rem;
+        }
+        
+        .cat-img {
+            width: 120px;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
 
         .buttons {
+            margin-top: auto; 
             display: flex;
-            gap: 20px;
-            align-items: center;
+            gap: 10px;
+            flex-direction: column;
+            width: 100%;
         }
 
-        .answerButton {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        .btn {
+            padding: 10px;
             border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Nunito', sans-serif;
+            border-radius: 5px;
             font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
         }
 
-        
-        .yes-btn {
-            background-color: #ff4d4d;
+        .yes {
+            background: #ff4d4d;
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
         }
-        .yes-btn:hover {
-            transform: scale(1.1);
-            background-color: #ff3333;
-        }
+        .yes:hover { background: #e60000; }
 
-   
-        #noButton {
-            background-color: #e0e0e0;
+        .no {
+            background: #ddd;
             color: #333;
             position: relative; 
         }
-        #noButton:hover {
-            background-color: #d6d6d6;
+
+       
+        .hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            animation: bounce 1s infinite;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+        
+       
+        .heart-seal {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            color: #d32f2f;
+            z-index: 30;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: opacity 0.5s;
+        }
+
+        .wrapper.open .heart-seal, 
+        .wrapper.open .hint {
+            opacity: 0; 
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(5px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="img-container">
-        <img src="cat.gif" alt="Please say yes" class="responsive" />
-    </div>
-
-    <div id="valentineQuestion"><b>Will you be my valentine Aprajita? 🌹</b></div>
-    
-    <div class="buttons">
-        <button class="answerButton yes-btn" onclick="location.href='thankyou.html'">
-            Obviously Yes ❤️
-        </button>
+    <div class="wrapper" id="envelopeWrapper">
         
-        <button class="answerButton" id="noButton">
-            No Never 😤
-        </button>
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="heart-seal">❤️</div>
+        </div>
+
+        <div class="letter">
+            <img src="cat.gif" alt="Cute Cat" class="cat-img">
+            <h1>Dear Aprajita,</h1>
+            <p>I have a very important question for you...</p>
+            <h2 style="color: #ff4d4d; font-family: 'Dancing Script';">Will you be my Valentine?</h2>
+            
+            <div class="buttons">
+                <button class="btn yes" onclick="location.href='thankyou.html'">YES! ❤️</button>
+                <button class="btn no" id="noBtn">No way 😤</button>
+            </div>
+        </div>
+        
+        <div class="hint">Click to open 💌</div>
     </div>
 
     <script>
-        const noBtn = document.getElementById("noButton");
-        const yesBtn = document.querySelector(".yes-btn");
+        const wrapper = document.getElementById('envelopeWrapper');
+        const noBtn = document.getElementById('noBtn');
+        let isOpen = false;
 
        
-        noBtn.addEventListener("click", function () {
-            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (currentSize + 20) + "px";
-            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) + 5) + "px";
-            yesBtn.innerText = "Pleaseeeee 🥺"; 
+        wrapper.addEventListener('click', function(e) {
+            if(e.target.tagName === 'BUTTON') return;
+
+            if (!isOpen) {
+                wrapper.classList.add('open');
+                isOpen = true;
+            }
         });
 
-     
-        noBtn.addEventListener("mouseover", function() {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+       
+        noBtn.addEventListener('mouseover', function() {
+          
+            const letterRect = document.querySelector('.letter').getBoundingClientRect();
+            const maxX = 200; 
+            const maxY = 300; 
+
+            const randomX = Math.floor(Math.random() * maxX) - 100;
+            const randomY = Math.floor(Math.random() * maxY) - 150;
+
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+        
+        
+        noBtn.addEventListener('touchstart', function() {
+            const randomX = Math.floor(Math.random() * 200) - 100;
+            const randomY = Math.floor(Math.random() * 200) - 100;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         });
     </script>
-    <script>
-  const card = document.querySelector(".container, .food-selection, .dessert-selection, .activities-selection, #date-summary, .img-container");
-  
-  if (card) {
-    card.style.transition = "transform 0.1s ease, box-shadow 0.2s ease";
-    card.style.transformStyle = "preserve-3d";
-    card.style.perspective = "1000px";
-
-    const glare = document.createElement("div");
-    glare.style.position = "absolute";
-    glare.style.width = "100%";
-    glare.style.height = "100%";
-    glare.style.top = "0";
-    glare.style.left = "0";
-    glare.style.backgroundImage = "linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 40%)";
-    glare.style.opacity = "0";
-    glare.style.transition = "opacity 0.3s";
-    glare.style.pointerEvents = "none";
-    glare.style.borderRadius = "20px";
-    glare.style.zIndex = "10";
-    card.appendChild(glare);
-
-    document.addEventListener("mousemove", (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.02)`;
-      card.style.boxShadow = `${-xAxis}px ${yAxis}px 30px rgba(0,0,0,0.2)`;
-
-      glare.style.opacity = "1";
-      glare.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-    });
-
-    document.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
-      card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
-      glare.style.opacity = "0";
-    });
-  }
-
-  const colors = ["#ff4d4d", "#ff9a9e", "#fad0c4", "#ffffff"];
-
-  document.addEventListener("mousemove", function (e) {
-    if (Math.random() < 0.8) return; 
-
-    let sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    document.body.appendChild(sparkle);
-
-    let x = e.pageX;
-    let y = e.pageY;
-    let size = Math.random() * 8 + 4;
-    let color = colors[Math.floor(Math.random() * colors.length)];
-
-    sparkle.style.left = x + "px";
-    sparkle.style.top = y + "px";
-    sparkle.style.width = size + "px";
-    sparkle.style.height = size + "px";
-    sparkle.style.background = color;
-
-    let plusMinusX = Math.random() < 0.5 ? -1 : 1;
-    let plusMinusY = Math.random() < 0.5 ? -1 : 1;
-    let randomX = Math.random() * 30 * plusMinusX;
-    let randomY = Math.random() * 30 * plusMinusY;
-
-    sparkle.animate([
-      { transform: `translate(0, 0) scale(1)`, opacity: 1 },
-      { transform: `translate(${randomX}px, ${randomY}px) scale(0)`, opacity: 0 }
-    ], {
-      duration: 800,
-      easing: "cubic-bezier(0, .9, .57, 1)",
-    }).onfinish = function() {
-      sparkle.remove();
-    };
-  });
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-    }
-    body {
-      perspective: 1000px;
-      overflow-x: hidden;
-    }
-  `;
-  document.head.appendChild(style);
-</script>
-    
 </body>
 </html>
