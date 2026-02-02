@@ -9,42 +9,40 @@
         body {
             font-family: 'Nunito', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Added padding to prevent edges touching */
             background-color: #ffe6e6;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
+            box-sizing: border-box; /* Ensures padding counts in width */
+            overflow-x: hidden;
         }
 
         #thankyou {
-            position: absolute;
-            top: 50px;
-            width: 100%;
-            text-align: center;
             font-family: 'Dancing Script', cursive;
             font-size: 3.5rem;
             color: #d32f2f;
-            z-index: 50;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
             animation: fadeInDown 1s ease;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.2;
         }
 
         .ticket-container {
-            position: relative;
-            z-index: 60;
             animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .ticket {
             background: white;
-            width: 700px;
-            height: 320px;
+            width: 100%;          /* Flexible width */
+            max-width: 700px;     /* Max width for PC */
+            min-height: 320px;    /* Min height so it can grow */
             border-radius: 15px;
             display: flex;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
@@ -62,6 +60,7 @@
             justify-content: space-between;
         }
 
+        /* Semantic holes for the ticket */
         .ticket-left::after, .ticket-left::before {
             content: '';
             position: absolute;
@@ -82,9 +81,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
             text-align: center;
-            gap: 20px; 
+            padding: 20px;
         }
 
         .ticket-header {
@@ -116,10 +114,7 @@
             gap: 15px;
         }
 
-        .info-item {
-            display: flex;
-            flex-direction: column;
-        }
+        .info-item { display: flex; flex-direction: column; }
 
         .label {
             font-size: 0.85rem;
@@ -130,45 +125,84 @@
         }
 
         .value {
-            font-size: 1.3rem;
+            font-size: 1.2rem; /* Slightly smaller for better fit */
             font-weight: 800;
             color: #333;
+            word-wrap: break-word; /* Prevents long text from breaking layout */
         }
 
         .barcode {
             font-family: 'Libre Barcode 39 Text', cursive;
             font-size: 2.5rem;
             color: white;
-            white-space: nowrap;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
             opacity: 0.9;
+            writing-mode: vertical-rl; /* Vertical text for style on PC */
+            text-orientation: mixed;
         }
 
         .admit-one {
-            font-family: 'Nunito', sans-serif;
             font-weight: 900;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
             border: 2px solid white;
             padding: 5px 15px;
             border-radius: 50px;
+            margin-bottom: 10px;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 📱 MOBILE RESPONSIVENESS START */
+        @media screen and (max-width: 600px) {
+            #thankyou { font-size: 2.5rem; margin-top: 20px; }
+
+            .ticket {
+                flex-direction: column; /* Stack vertically on phone */
+                height: auto;
+                max-width: 350px; /* fits most phones */
+            }
+
+            .ticket-left {
+                width: 100%;
+                border-right: none;
+                border-bottom: 3px dashed #ffcccc;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .ticket-left::after, .ticket-left::before {
+                display: none; /* Remove punch holes on mobile for cleaner look */
+            }
+
+            .ticket-right {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+                box-sizing: border-box;
+                flex-direction: row; /* Side by side content on bottom */
+                justify-content: space-around;
+            }
+
+            .barcode {
+                writing-mode: horizontal-tb; /* Horizontal barcode on phone */
+                font-size: 2rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr 1fr; /* Keep 2 columns */
+                gap: 10px;
+            }
+            
+            .brand { font-size: 1.8rem; }
         }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        /* 📱 MOBILE RESPONSIVENESS END */
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
-    
+
     <div id="thankyou">Thank you for being my girlfriend ❤️</div>
 
     <div class="ticket-container">
@@ -176,7 +210,7 @@
             <div class="ticket-left">
                 <div class="ticket-header">
                     <span class="brand">Valentine's Date</span>
-                    <span class="ticket-title">OFFICIAL TICKET</span>
+                    <span class="ticket-title">OFFICIAL</span>
                 </div>
                 
                 <div class="info-grid">
@@ -204,40 +238,41 @@
             </div>
             
             <div class="ticket-right">
-                <div class="admit-one">ADMIT TWO</div>
+                <div class="admit-one">ADMIT 2</div>
                 <div class="barcode">ILOVEYOU</div>
             </div>
         </div>
     </div>
-    <body>
+
     <audio id="bg-music" autoplay loop>
         <source src="city.mp3" type="audio/mpeg">
     </audio>
     
     <script>
+        // Music Auto-play fix
         window.addEventListener('click', function() {
             var audio = document.getElementById("bg-music");
             audio.play();
         }, { once: true });
     </script>
 
-</body>
-</html>
-
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         window.onload = function() {
+            // Retrieve Data
             const date = localStorage.getItem('user_date');
             const food = localStorage.getItem('user_food');
             const dessert = localStorage.getItem('user_dessert');
             const activity = localStorage.getItem('user_activity');
 
+            // Set Data (Handle if data is missing)
             document.getElementById('res-date').innerText = date || "Anytime!";
             document.getElementById('res-food').innerText = food || "Surprise me!";
             document.getElementById('res-dessert').innerText = dessert || "Something sweet!";
             document.getElementById('res-activity').innerText = activity || "Just us!";
 
+            // Confetti Effect
             var duration = 3000;
             var end = Date.now() + duration;
 
@@ -257,6 +292,7 @@
             }());
         };
 
+        // Heart Trail Effect
         document.addEventListener("mousemove", function (e) {
             let body = document.querySelector("body");
             let heart = document.createElement("span");
