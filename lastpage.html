@@ -243,4 +243,69 @@
             const dessert = localStorage.getItem('user_dessert');
             const activity = localStorage.getItem('user_activity');
 
-            document.getElementById('res-date').innerText =
+            document.getElementById('res-date').innerText = date || "Anytime!";
+            document.getElementById('res-food').innerText = food || "Surprise me!";
+            document.getElementById('res-dessert').innerText = dessert || "Something sweet!";
+            document.getElementById('res-activity').innerText = activity || "Just us!";
+
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
+                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
+                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        };
+
+        document.addEventListener("mousemove", function (e) {
+            let body = document.querySelector("body");
+            let heart = document.createElement("span");
+            let x = e.pageX;
+            let y = e.pageY;
+            
+            heart.style.left = x + "px";
+            heart.style.top = y + "px";
+            
+            let size = Math.random() * 20 + 10;
+            heart.style.width = size + "px";
+            heart.style.height = size + "px";
+            heart.className = "trail-heart";
+            
+            body.appendChild(heart);
+
+            setTimeout(function () {
+                heart.remove();
+            }, 1000);
+        });
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .trail-heart {
+                position: absolute;
+                background: url('https://cdn-icons-png.flaticon.com/512/210/210545.png');
+                background-size: cover;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                animation: fadeOut 1s linear forwards;
+                z-index: 9999;
+                opacity: 0.6;
+            }
+            @keyframes fadeOut {
+                0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+                100% { transform: translate(-50%, -150%) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
