@@ -3,242 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Selection</title>
+    <title>Save the Date</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
-            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); 
+            background: #e0f7fa;
             font-family: 'Nunito', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
-
         .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.85);
+            background: white;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 90%;
-            animation: fadeIn 1s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #d35400;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: #555;
-        }
-
-        input[type="date"] {
-            padding: 12px;
-            font-size: 1.1rem;
-            border: 2px solid #ffccbc;
-            border-radius: 10px;
-            outline: none;
-            width: 80%;
             text-align: center;
-            color: #d35400;
-            background: #fff;
-            transition: border 0.3s;
-            font-family: 'Nunito', sans-serif;
+            width: 350px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
         }
-
-        input[type="date"]:focus {
-            border-color: #d35400;
-        }
-
-        .button {
-            margin-top: 25px;
-            padding: 12px 35px;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, #ff7e5f, #feb47b);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: bold;
-        }
-
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
-        }
-
-        
-        #custom-popup {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            animation: fadeIn 0.3s;
-        }
-        
-        .popup-content {
-            background: white;
-            margin: 25% auto;
-            padding: 25px;
-            border-radius: 15px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            border-top: 5px solid #ff7e5f;
-        }
-
-        .popup-btn {
-            background: #ff7e5f;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        h1 { font-family: 'Dancing Script'; color: #006064; font-size: 2.5rem; }
+        input { padding: 15px; border-radius: 10px; border: 2px solid #00bcd4; width: 80%; font-size: 1.1rem; text-align: center; color: #006064; outline: none; }
+        .btn { margin-top: 20px; padding: 12px 30px; border-radius: 50px; background: #00bcd4; color: white; border: none; cursor: pointer; font-size: 1.2rem; font-weight: bold; }
+        .btn:hover { background: #0097a7; }
     </style>
 </head>
 <body>
-    
-    <div class="container">
-        <h1>Are you free on ...</h1>
-        <label>Pick a date for our date! 📅</label>
-        
-        <input type="date" id="date-input" />
-        
-        <button class="button" id="date-btn">Let's Go ➔</button>
-    </div>
-
-    <div id="custom-popup">
-        <div class="popup-content">
-            <h3 style="color:#d35400; margin:0 0 10px 0;">Harshit says ❤️</h3>
-            <p>Please pick a date first, cutie!</p>
-            <button class="popup-btn" onclick="document.getElementById('custom-popup').style.display='none'">Okay!</button>
-        </div>
+    <div class="container" id="card3d">
+        <h1>Save the Date 📅</h1>
+        <p>When are you free, my love?</p>
+        <input type="date" id="date-input">
+        <br>
+        <button class="btn" id="date-btn">Lock It 🔒</button>
     </div>
 
     <script>
+        
+        const card = document.getElementById('card3d');
+        document.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 20;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 20;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
         document.getElementById('date-btn').addEventListener('click', function() {
             const dateVal = document.getElementById('date-input').value;
             if(dateVal) {
                 localStorage.setItem('user_date', dateVal);
                 window.location.href = 'food.html';
             } else {
-                document.getElementById('custom-popup').style.display = 'block';
+                alert("Please pick a date! ❤️");
             }
         });
     </script>
-    <script>
-  const card = document.querySelector(".container, .food-selection, .dessert-selection, .activities-selection, #date-summary, .img-container");
-  
-  if (card) {
-    card.style.transition = "transform 0.1s ease, box-shadow 0.2s ease";
-    card.style.transformStyle = "preserve-3d";
-    card.style.perspective = "1000px";
-
-    const glare = document.createElement("div");
-    glare.style.position = "absolute";
-    glare.style.width = "100%";
-    glare.style.height = "100%";
-    glare.style.top = "0";
-    glare.style.left = "0";
-    glare.style.backgroundImage = "linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 40%)";
-    glare.style.opacity = "0";
-    glare.style.transition = "opacity 0.3s";
-    glare.style.pointerEvents = "none";
-    glare.style.borderRadius = "20px";
-    glare.style.zIndex = "10";
-    card.appendChild(glare);
-
-    document.addEventListener("mousemove", (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.02)`;
-      card.style.boxShadow = `${-xAxis}px ${yAxis}px 30px rgba(0,0,0,0.2)`;
-
-      glare.style.opacity = "1";
-      glare.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-    });
-
-    document.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
-      card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
-      glare.style.opacity = "0";
-    });
-  }
-
-  const colors = ["#ff4d4d", "#ff9a9e", "#fad0c4", "#ffffff"];
-
-  document.addEventListener("mousemove", function (e) {
-    if (Math.random() < 0.8) return; 
-
-    let sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    document.body.appendChild(sparkle);
-
-    let x = e.pageX;
-    let y = e.pageY;
-    let size = Math.random() * 8 + 4;
-    let color = colors[Math.floor(Math.random() * colors.length)];
-
-    sparkle.style.left = x + "px";
-    sparkle.style.top = y + "px";
-    sparkle.style.width = size + "px";
-    sparkle.style.height = size + "px";
-    sparkle.style.background = color;
-
-    let plusMinusX = Math.random() < 0.5 ? -1 : 1;
-    let plusMinusY = Math.random() < 0.5 ? -1 : 1;
-    let randomX = Math.random() * 30 * plusMinusX;
-    let randomY = Math.random() * 30 * plusMinusY;
-
-    sparkle.animate([
-      { transform: `translate(0, 0) scale(1)`, opacity: 1 },
-      { transform: `translate(${randomX}px, ${randomY}px) scale(0)`, opacity: 0 }
-    ], {
-      duration: 800,
-      easing: "cubic-bezier(0, .9, .57, 1)",
-    }).onfinish = function() {
-      sparkle.remove();
-    };
-  });
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-    }
-    body {
-      perspective: 1000px;
-      overflow-x: hidden;
-    }
-  `;
-  document.head.appendChild(style);
-</script>
 </body>
 </html>
