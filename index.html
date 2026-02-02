@@ -188,6 +188,18 @@
         </div>
         <div class="hint">Click to open...</div>
     </div>
+    <audio id="bg-music" autoplay loop>
+    <source src="v.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // This script ensures the music plays even if the browser tries to block it
+    window.addEventListener('click', function() {
+        var audio = document.getElementById("bg-music");
+        audio.play();
+    }, { once: true });
+</script>
 
     <script>
         const envelope = document.getElementById('envelope');
