@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Date Ticket</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&family=Barcode+39+Text&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/flower.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -94,6 +93,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            text-align: center;
         }
 
         .ticket-header {
@@ -145,36 +145,30 @@
         }
 
         .barcode {
-            font-family: 'Barcode 39 Text', cursive;
-            font-size: 3rem;
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
             color: white;
-            opacity: 0.8;
+            letter-spacing: 5px;
             transform: rotate(-90deg);
             white-space: nowrap;
             position: absolute;
-            bottom: 60px;
+            bottom: 80px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .admit-one {
-            font-weight: bold;
-            font-size: 1.5rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
             text-transform: uppercase;
             letter-spacing: 5px;
             writing-mode: vertical-rl;
             transform: rotate(180deg);
             position: absolute;
-            top: 40px;
-        }
-
-        .flower {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 400px;
-            z-index: 10;
-            pointer-events: none;
+            top: 30px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         @keyframes fadeInDown {
@@ -228,13 +222,6 @@
                 <span class="barcode">ILOVEYOU</span>
             </div>
         </div>
-    </div>
-
-    <div class="flower">
-      <div class="f-wrapper"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--yellow"></div></div></div>
-      <div class="f-wrapper f-wrapper--2"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--pink"></div></div></div>
-      <div class="f-wrapper f-wrapper--3"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--purple"></div></div></div>
-      <div class="flower__glass"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
