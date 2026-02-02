@@ -106,5 +106,97 @@
             window.location.href = 'lastpage.html';
         });
     </script>
+    <script>
+  const card = document.querySelector(".container, .food-selection, .dessert-selection, .activities-selection, #date-summary, .img-container");
+  
+  if (card) {
+    card.style.transition = "transform 0.1s ease, box-shadow 0.2s ease";
+    card.style.transformStyle = "preserve-3d";
+    card.style.perspective = "1000px";
+
+    const glare = document.createElement("div");
+    glare.style.position = "absolute";
+    glare.style.width = "100%";
+    glare.style.height = "100%";
+    glare.style.top = "0";
+    glare.style.left = "0";
+    glare.style.backgroundImage = "linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 40%)";
+    glare.style.opacity = "0";
+    glare.style.transition = "opacity 0.3s";
+    glare.style.pointerEvents = "none";
+    glare.style.borderRadius = "20px";
+    glare.style.zIndex = "10";
+    card.appendChild(glare);
+
+    document.addEventListener("mousemove", (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.02)`;
+      card.style.boxShadow = `${-xAxis}px ${yAxis}px 30px rgba(0,0,0,0.2)`;
+
+      glare.style.opacity = "1";
+      glare.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+      card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
+      glare.style.opacity = "0";
+    });
+  }
+
+  const colors = ["#ff4d4d", "#ff9a9e", "#fad0c4", "#ffffff"];
+
+  document.addEventListener("mousemove", function (e) {
+    if (Math.random() < 0.8) return; 
+
+    let sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    document.body.appendChild(sparkle);
+
+    let x = e.pageX;
+    let y = e.pageY;
+    let size = Math.random() * 8 + 4;
+    let color = colors[Math.floor(Math.random() * colors.length)];
+
+    sparkle.style.left = x + "px";
+    sparkle.style.top = y + "px";
+    sparkle.style.width = size + "px";
+    sparkle.style.height = size + "px";
+    sparkle.style.background = color;
+
+    let plusMinusX = Math.random() < 0.5 ? -1 : 1;
+    let plusMinusY = Math.random() < 0.5 ? -1 : 1;
+    let randomX = Math.random() * 30 * plusMinusX;
+    let randomY = Math.random() * 30 * plusMinusY;
+
+    sparkle.animate([
+      { transform: `translate(0, 0) scale(1)`, opacity: 1 },
+      { transform: `translate(${randomX}px, ${randomY}px) scale(0)`, opacity: 0 }
+    ], {
+      duration: 800,
+      easing: "cubic-bezier(0, .9, .57, 1)",
+    }).onfinish = function() {
+      sparkle.remove();
+    };
+  });
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .sparkle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+    }
+    body {
+      perspective: 1000px;
+      overflow-x: hidden;
+    }
+  `;
+  document.head.appendChild(style);
+</script>
 </body>
 </html>
