@@ -2,37 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activity</title>
+    <title>Activities</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #e8eaf6; font-family: 'Nunito', sans-serif; text-align: center; }
-        h1 { font-family: 'Dancing Script'; font-size: 3rem; color: #1a237e; margin-top: 20px; }
-        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 800px; margin: 20px auto; }
-        .item { background: white; padding: 10px 10px 30px 10px; border-radius: 2px; width: 140px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: rotate(-2deg); transition: 0.3s; }
-        .item:nth-child(even) { transform: rotate(2deg); }
-        .item:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
-        img { width: 100%; height: 100px; object-fit: cover; border: 1px solid #ccc; }
-        .btn { padding: 15px 40px; background: #3f51b5; color: white; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; margin-bottom: 30px; font-weight: bold; }
+        body {
+            background: #e0f7fa; font-family: 'Nunito', sans-serif; text-align: center;
+            overflow-y: auto; overflow-x: hidden; padding-bottom: 80px;
+        }
+        h1 { font-family: 'Dancing Script', cursive; color: #006064; font-size: 2.5rem; margin-top: 30px; }
+        .activities-selection { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+        .activity-item { background: white; border-radius: 15px; padding: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s; width: 150px; }
+        .activity-item:hover { transform: scale(1.05); }
+        .activity-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; }
+        .button { margin-top: 30px; padding: 15px 40px; font-size: 1.3rem; background: linear-gradient(45deg, #26c6da, #4dd0e1); color: white; border: none; border-radius: 50px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>What should we do? 🎉</h1>
-    <div class="grid">
-        <div class="item"><img src="activities/movie.jpeg"><label><input type="checkbox" name="activity" value="Movie"> Movie</label></div>
-        <div class="item"><img src="activities/drive.jpeg"><label><input type="checkbox" name="activity" value="Long Drive"> Drive</label></div>
-        <div class="item"><img src="activities/arcade.jpeg"><label><input type="checkbox" name="activity" value="Arcade"> Arcade</label></div>
+    <h1>What are we doing after? 🎉</h1>
+
+    <div class="activities-selection">
+        <div class="activity-item"><img src="activities/Chill.jpeg"><label><input type="checkbox" name="activity" value="Chill at Home"> Chill</label></div>
+        <div class="activity-item"><img src="activities/arcade.jpeg"><label><input type="checkbox" name="activity" value="Arcade"> Arcade</label></div>
+        <div class="activity-item"><img src="activities/cinema.jpeg"><label><input type="checkbox" name="activity" value="Cinema"> Cinema</label></div>
+        <div class="activity-item"><img src="activities/StandUp.jpeg"><label><input type="checkbox" name="activity" value="StandUp"> StandUp</label></div>
+        <div class="activity-item"><img src="activities/kunsthalle.jpeg"><label><input type="checkbox" name="activity" value="Exhibition"> Exhibition</label></div>
+        <div class="activity-item"><img src="activities/park.jpeg"><label><input type="checkbox" name="activity" value="Park"> Park</label></div>
     </div>
-    <button class="btn" id="save-activity">Finish! 🏁</button>
+
+    <button class="button" id="save-activity">Finish! 🏁</button>
 
     <script>
         document.getElementById('save-activity').addEventListener('click', function() {
             const checked = document.querySelectorAll('input[name="activity"]:checked');
-            let choices = [];
-            checked.forEach(box => choices.push(box.value));
+            let choices = []; checked.forEach(box => choices.push(box.value));
             localStorage.setItem('user_activity', choices.length > 0 ? choices.join(", ") : "Just Us");
             window.location.href = 'lastpage.html';
         });
+        // Heart Trail
+        document.addEventListener("mousemove", (e) => { let h=document.createElement("span"); h.className="trail-heart"; h.style.left=e.pageX+"px"; h.style.top=e.pageY+"px"; h.style.width=h.style.height=(Math.random()*20+10)+"px"; document.body.appendChild(h); setTimeout(()=>h.remove(),1000); });
+        const s = document.createElement('style'); s.innerHTML = `.trail-heart { position: absolute; background: url('https://cdn-icons-png.flaticon.com/512/210/210545.png') center/cover; pointer-events: none; transform: translate(-50%, -50%); animation: fadeOut 1s linear forwards; z-index: 100; opacity: 0.6; } @keyframes fadeOut { 100% { transform: translate(-50%, -150%) scale(0); opacity: 0; } }`; document.head.appendChild(s);
     </script>
 </body>
 </html>
