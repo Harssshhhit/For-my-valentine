@@ -38,6 +38,18 @@
             <button onclick="document.getElementById('custom-popup').style.display='none'" style="padding:8px 20px; background:#ff7e5f; color:white; border:none; border-radius:5px;">Okay!</button>
         </div>
     </div>
+    <audio id="bg-music" autoplay loop>
+    <source src="ama.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // This script ensures the music plays even if the browser tries to block it
+    window.addEventListener('click', function() {
+        var audio = document.getElementById("bg-music");
+        audio.play();
+    }, { once: true });
+</script>
 
     <script>
         document.getElementById('date-btn').addEventListener('click', function() {
