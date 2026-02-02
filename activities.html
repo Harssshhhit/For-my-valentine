@@ -29,7 +29,22 @@
         <div class="activity-item"><img src="activities/park.jpeg"><label><input type="checkbox" name="activity" value="Park"> Park</label></div>
     </div>
 
-    <button class="button" id="save-activity">Finish! 🏁</button>
+    <button class="button" id="save-activity">Finish! </button>
+    <body>
+    <audio id="bg-music" autoplay loop>
+        <source src="call.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        window.addEventListener('click', function() {
+            var audio = document.getElementById("bg-music");
+            audio.play();
+        }, { once: true });
+    </script>
+
+</body>
+</html>
+    
 
     <script>
         document.getElementById('save-activity').addEventListener('click', function() {
