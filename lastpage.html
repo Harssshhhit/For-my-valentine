@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #333; /* Dark background to make ticket pop */
+            background: #333;
             font-family: 'Courier Prime', monospace;
             display: flex;
             justify-content: center;
@@ -55,7 +55,7 @@
             width: 200px;
             background: repeating-linear-gradient(90deg, #333 0, #333 2px, transparent 2px, transparent 4px);
         }
-        /* Holes for ticket look */
+        
         .circle {
             background: #333;
             width: 30px;
@@ -90,13 +90,13 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         window.onload = function() {
-            // Data loading
+            
             document.getElementById('res-date').innerText = localStorage.getItem('user_date') || "Anytime";
             document.getElementById('res-food').innerText = localStorage.getItem('user_food') || "Surprise";
             document.getElementById('res-dessert').innerText = localStorage.getItem('user_dessert') || "Sweets";
             document.getElementById('res-activity').innerText = localStorage.getItem('user_activity') || "Us Time";
 
-            // Confetti
+           
             var end = Date.now() + 3000;
             (function frame() {
                 confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d4d', '#ffffff'] });
