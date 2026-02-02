@@ -3,200 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activities</title>
+    <title>Activity</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-        body {
-            background: #e0f7fa; /* Cyan tint */
-            font-family: 'Nunito', sans-serif;
-            text-align: center;
-            padding-bottom: 50px;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #006064;
-            font-size: 2.5rem;
-            margin-top: 30px;
-        }
-
-        .activities-selection {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .activity-item {
-            background: white;
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            width: 150px;
-        }
-
-        .activity-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0, 96, 100, 0.2);
-        }
-
-        .activity-item img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .activity-item label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="checkbox"] {
-            accent-color: #00bcd4;
-            transform: scale(1.2);
-        }
-
-        .button {
-            margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            background: linear-gradient(45deg, #26c6da, #4dd0e1);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            box-shadow: 0 5px 15px rgba(38, 198, 218, 0.3);
-        }
-
-        .button:hover { transform: scale(1.05); }
+        body { background: #e8eaf6; font-family: 'Nunito', sans-serif; text-align: center; }
+        h1 { font-family: 'Dancing Script'; font-size: 3rem; color: #1a237e; margin-top: 20px; }
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 800px; margin: 20px auto; }
+        .item { background: white; padding: 10px 10px 30px 10px; border-radius: 2px; width: 140px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: rotate(-2deg); transition: 0.3s; }
+        .item:nth-child(even) { transform: rotate(2deg); }
+        .item:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+        img { width: 100%; height: 100px; object-fit: cover; border: 1px solid #ccc; }
+        .btn { padding: 15px 40px; background: #3f51b5; color: white; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer; margin-bottom: 30px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <h1>What should we do after? 🎉</h1>
-
-    <div class="activities-selection">
-        <div class="activity-item"><img src="activities/Chill.jpeg"><label><input type="checkbox" name="activity" value="Chill"> Chill</label></div>
-        <div class="activity-item"><img src="activities/arcade.jpeg"><label><input type="checkbox" name="activity" value="Arcade"> Arcade</label></div>
-        <div class="activity-item"><img src="activities/cinema.jpeg"><label><input type="checkbox" name="activity" value="Cinema"> Cinema</label></div>
-        <div class="activity-item"><img src="activities/StandUp.jpeg"><label><input type="checkbox" name="activity" value="StandUp"> StandUp</label></div>
-        <div class="activity-item"><img src="activities/kunsthalle.jpeg"><label><input type="checkbox" name="activity" value="Exhibition"> Exhibition</label></div>
-        <div class="activity-item"><img src="activities/park.jpeg"><label><input type="checkbox" name="activity" value="Park"> Park</label></div>
+    <h1>What should we do? 🎉</h1>
+    <div class="grid">
+        <div class="item"><img src="activities/movie.jpeg"><label><input type="checkbox" name="activity" value="Movie"> Movie</label></div>
+        <div class="item"><img src="activities/drive.jpeg"><label><input type="checkbox" name="activity" value="Long Drive"> Drive</label></div>
+        <div class="item"><img src="activities/arcade.jpeg"><label><input type="checkbox" name="activity" value="Arcade"> Arcade</label></div>
     </div>
-
-    <button class="button" id="save-activity">Finish! 🏁</button>
+    <button class="btn" id="save-activity">Finish! 🏁</button>
 
     <script>
         document.getElementById('save-activity').addEventListener('click', function() {
             const checked = document.querySelectorAll('input[name="activity"]:checked');
             let choices = [];
             checked.forEach(box => choices.push(box.value));
-            
-            let finalActivity = choices.length > 0 ? choices.join(", ") : "Just Us";
-            localStorage.setItem('user_activity', finalActivity);
+            localStorage.setItem('user_activity', choices.length > 0 ? choices.join(", ") : "Just Us");
             window.location.href = 'lastpage.html';
         });
     </script>
-    <script>
-  const card = document.querySelector(".container, .food-selection, .dessert-selection, .activities-selection, #date-summary, .img-container");
-  
-  if (card) {
-    card.style.transition = "transform 0.1s ease, box-shadow 0.2s ease";
-    card.style.transformStyle = "preserve-3d";
-    card.style.perspective = "1000px";
-
-    const glare = document.createElement("div");
-    glare.style.position = "absolute";
-    glare.style.width = "100%";
-    glare.style.height = "100%";
-    glare.style.top = "0";
-    glare.style.left = "0";
-    glare.style.backgroundImage = "linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 40%)";
-    glare.style.opacity = "0";
-    glare.style.transition = "opacity 0.3s";
-    glare.style.pointerEvents = "none";
-    glare.style.borderRadius = "20px";
-    glare.style.zIndex = "10";
-    card.appendChild(glare);
-
-    document.addEventListener("mousemove", (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) scale(1.02)`;
-      card.style.boxShadow = `${-xAxis}px ${yAxis}px 30px rgba(0,0,0,0.2)`;
-
-      glare.style.opacity = "1";
-      glare.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-    });
-
-    document.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
-      card.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
-      glare.style.opacity = "0";
-    });
-  }
-
-  const colors = ["#ff4d4d", "#ff9a9e", "#fad0c4", "#ffffff"];
-
-  document.addEventListener("mousemove", function (e) {
-    if (Math.random() < 0.8) return; 
-
-    let sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    document.body.appendChild(sparkle);
-
-    let x = e.pageX;
-    let y = e.pageY;
-    let size = Math.random() * 8 + 4;
-    let color = colors[Math.floor(Math.random() * colors.length)];
-
-    sparkle.style.left = x + "px";
-    sparkle.style.top = y + "px";
-    sparkle.style.width = size + "px";
-    sparkle.style.height = size + "px";
-    sparkle.style.background = color;
-
-    let plusMinusX = Math.random() < 0.5 ? -1 : 1;
-    let plusMinusY = Math.random() < 0.5 ? -1 : 1;
-    let randomX = Math.random() * 30 * plusMinusX;
-    let randomY = Math.random() * 30 * plusMinusY;
-
-    sparkle.animate([
-      { transform: `translate(0, 0) scale(1)`, opacity: 1 },
-      { transform: `translate(${randomX}px, ${randomY}px) scale(0)`, opacity: 0 }
-    ], {
-      duration: 800,
-      easing: "cubic-bezier(0, .9, .57, 1)",
-    }).onfinish = function() {
-      sparkle.remove();
-    };
-  });
-
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-    }
-    body {
-      perspective: 1000px;
-      overflow-x: hidden;
-    }
-  `;
-  document.head.appendChild(style);
-</script>
 </body>
 </html>
