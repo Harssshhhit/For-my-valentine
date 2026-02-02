@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); /* Fresh Gradient */
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d35400;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        input[type="date"] {
+            padding: 12px;
+            font-size: 1.1rem;
+            border: 2px solid #ffccbc;
+            border-radius: 10px;
+            outline: none;
+            width: 80%;
+            text-align: center;
+            color: #d35400;
+            background: #fff;
+            transition: border 0.3s;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        input[type="date"]:focus {
+            border-color: #d35400;
+        }
+
+        .button {
+            margin-top: 25px;
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+        }
+
+        /* --- CUSTOM POPUP (Aryan Says) --- */
+        #custom-popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+        
+        .popup-content {
+            background: white;
+            margin: 25% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-top: 5px solid #ff7e5f;
+        }
+
+        .popup-btn {
+            background: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Are you free on ...</h1>
+        <label>Pick a date for our date! 📅</label>
+        
+        <input type="date" id="date-input" />
+        
+        <button class="button" id="date-btn">Let's Go ➔</button>
+    </div>
+
+    <div id="custom-popup">
+        <div class="popup-content">
+            <h3 style="color:#d35400; margin:0 0 10px 0;">Aryan says ❤️</h3>
+            <p>Please pick a date first, cutie!</p>
+            <button class="popup-btn" onclick="document.getElementById('custom-popup').style.display='none'">Okay!</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('date-btn').addEventListener('click', function() {
+            const dateVal = document.getElementById('date-input').value;
+            if(dateVal) {
+                localStorage.setItem('user_date', dateVal);
+                window.location.href = 'food.html';
+            } else {
+                document.getElementById('custom-popup').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

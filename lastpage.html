@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Perfect Date</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/flower.css">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6e6;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        #thankyou {
+            position: absolute;
+            top: 30px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #d32f2f;
+            z-index: 50;
+            text-shadow: 1px 1px 2px white;
+            animation: fadeInDown 1s;
+        }
+
+        #date-summary {
+            position: absolute;
+            top: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 2px dashed #ff4d4d;
+            
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            z-index: 40;
+            animation: zoomIn 0.5s ease;
+        }
+
+        .summary-line {
+            margin: 12px 0;
+            font-size: 1.1rem;
+            color: #444;
+            border-bottom: 1px dotted #ffcccc;
+            padding-bottom: 5px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #d81b60;
+            font-size: 1.3rem;
+            display: block;
+        }
+
+        /* Flower Settings (Fixed Bouquet) */
+        .flower {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 400px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+            to { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="thankyou">Thank you for being my girlfriend ❤️</div>
+
+    <div id="date-summary">
+        <h3 style="color:#d32f2f; margin: 0 0 15px 0; font-family: 'Dancing Script', cursive; font-size: 2rem;">Our Valentine's Plan</h3>
+        
+        <div class="summary-line">
+            📅 When: <span id="res-date" class="highlight">Loading...</span>
+        </div>
+        <div class="summary-line">
+            🍔 Food: <span id="res-food" class="highlight">Loading...</span>
+        </div>
+        <div class="summary-line">
+            🍩 Dessert: <span id="res-dessert" class="highlight">Loading...</span>
+        </div>
+        <div class="summary-line">
+            🎉 Activity: <span id="res-activity" class="highlight">Loading...</span>
+        </div>
+    </div>
+
+    <div class="flower">
+      <div class="f-wrapper"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--yellow"></div></div></div>
+      <div class="f-wrapper f-wrapper--2"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--pink"></div></div></div>
+      <div class="f-wrapper f-wrapper--3"><div class="flower__line"></div><div class="f"><div class="flower__leaf flower__leaf--1"></div><div class="flower__leaf flower__leaf--2"></div><div class="flower__leaf flower__leaf--3"></div><div class="flower__leaf flower__leaf--4"></div><div class="flower__leaf flower__leaf--5"></div><div class="flower__leaf flower__leaf--6"></div><div class="flower__leaf flower__leaf--7"></div><div class="flower__leaf flower__leaf--8 flower__fall-down--purple"></div></div></div>
+      <div class="flower__glass"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        window.onload = function() {
+            // 1. Data Loading
+            const date = localStorage.getItem('user_date');
+            const food = localStorage.getItem('user_food');
+            const dessert = localStorage.getItem('user_dessert') || "Something sweet";
+            const activity = localStorage.getItem('user_activity');
+
+            document.getElementById('res-date').innerText = date || "Anytime!";
+            document.getElementById('res-food').innerText = food || "Surprise me!";
+            document.getElementById('res-dessert').innerText = dessert;
+            document.getElementById('res-activity').innerText = activity || "Just us!";
+
+            // 2. Confetti Blast
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5, angle: 60, spread: 55, origin: { x: 0 },
+                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5, angle: 120, spread: 55, origin: { x: 1 },
+                    colors: ['#ff4d4d', '#ff80ab', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Be My Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            /* प्यारा सा बैकग्राउंड ग्रेडिएंट */
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #valentineQuestion {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #d32f2f;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite; /* सवाल बाउंस करेगा */
+        }
+
+        .img-container {
+            margin-bottom: 20px;
+        }
+        
+        img.responsive {
+            width: 200px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .answerButton {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+        }
+
+        /* Yes Button Style */
+        .yes-btn {
+            background-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+        }
+        .yes-btn:hover {
+            transform: scale(1.1);
+            background-color: #ff3333;
+        }
+
+        /* No Button Style */
+        #noButton {
+            background-color: #e0e0e0;
+            color: #333;
+            position: relative; /* भागने के लिए ज़रूरी */
+        }
+        #noButton:hover {
+            background-color: #d6d6d6;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="img-container">
+        <img src="cat.gif" alt="Please say yes" class="responsive" />
+    </div>
+
+    <div id="valentineQuestion"><b>Will you be my valentine Aprajita? 🌹</b></div>
+    
+    <div class="buttons">
+        <button class="answerButton yes-btn" onclick="location.href='thankyou.html'">
+            Obviously Yes ❤️
+        </button>
+        
+        <button class="answerButton" id="noButton">
+            No Never 😤
+        </button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noButton");
+        const yesBtn = document.querySelector(".yes-btn");
+
+        // 1. अगर वह 'No' पर क्लिक करें, तो 'Yes' बड़ा होगा (आपका लॉजिक)
+        noBtn.addEventListener("click", function () {
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 20) + "px";
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) + 5) + "px";
+            yesBtn.innerText = "Pleaseeeee 🥺"; 
+        });
+
+        // 2. (Optional) 'No' बटन को माउस पास आने पर भगाना (Fun Interaction)
+        noBtn.addEventListener("mouseover", function() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+    </script>
+</body>
+</html>

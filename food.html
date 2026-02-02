@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background: #fff5f5;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-top: 30px;
+        }
+
+        .food-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .food-item {
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            width: 150px;
+            cursor: pointer;
+        }
+
+        .food-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(216, 27, 96, 0.2);
+        }
+
+        .food-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .food-item label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+        }
+
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            accent-color: #d81b60;
+            transform: scale(1.2);
+        }
+
+        .button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, #d81b60, #ff80ab);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>What would you like to eat? 🍔</h1>
+
+    <div class="food-selection">
+        <div class="food-item"><img src="food/burgers.jpeg"><label><input type="checkbox" name="food" value="Burgers"> Burger</label></div>
+        <div class="food-item"><img src="food/dog.jpeg"><label><input type="checkbox" name="food" value="Hotdog"> Hotdog</label></div>
+        <div class="food-item"><img src="food/koreanfood.jpeg"><label><input type="checkbox" name="food" value="Korean"> Korean</label></div>
+        <div class="food-item"><img src="food/pasta.jpeg"><label><input type="checkbox" name="food" value="Pasta"> Pasta</label></div>
+        <div class="food-item"><img src="food/pizza.jpeg"><label><input type="checkbox" name="food" value="Pizza"> Pizza</label></div>
+        <div class="food-item"><img src="food/salad.jpeg"><label><input type="checkbox" name="food" value="Salad"> Salad</label></div>
+        <div class="food-item"><img src="food/gobi.jpeg"><label><input type="checkbox" name="food" value="Gobi"> Gobi</label></div>
+        <div class="food-item"><img src="food/sushi.jpeg"><label><input type="checkbox" name="food" value="Sushi"> Sushi</label></div>
+    </div>
+
+    <button class="button" id="save-food">Yummy! Next ➔</button>
+
+    <script>
+        document.getElementById('save-food').addEventListener('click', function() {
+            const checked = document.querySelectorAll('input[name="food"]:checked');
+            let choices = [];
+            checked.forEach(box => choices.push(box.value));
+            
+            let finalFood = choices.length > 0 ? choices.join(", ") : "Whatever you like";
+            localStorage.setItem('user_food', finalFood);
+            window.location.href = 'dessert.html';
+        });
+    </script>
+</body>
+</html>
